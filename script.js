@@ -32,8 +32,8 @@ function searchForCityAPI(cityName) {
         return response.json();
     })
     .then(function (data) {
-        // console.log(data);
-
+        console.log(data);
+        todaysWeatherInfo.append(`<h2>${data.name}</h2>`)
         todaysWeatherInfo.append(`<p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p>`)
         todaysWeatherInfo.append(`<p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p>`)
         todaysWeatherInfo.append(`<p>Humidity: <span>${(data.main.humidity)}%</span></p>`)
@@ -61,7 +61,7 @@ function searchForCityAPI(cityName) {
                     console.log(currentForcastIndex);
                     
                     //append new container to'(container-for-five-day)
-                    containerForFiveDay.append(`<div border border-secondary m-1><h3>hello</h3></div>`)
+                    containerForFiveDay.append(`<div border border-secondary p-2><h6>${(currentForcastIndex.dt_txt)}</h6><p>Temp: <span>${Math.floor(currentForcastIndex.main.temp)} °F</span></p><p>Wind Speed: <span>${(currentForcastIndex.wind.speed)} MPH</span></p><p>Humidity: <span>${(currentForcastIndex.main.humidity)}%</span></p></div>`)
 
 
                     // containerForFiveDay.append(`<p>Temp: <span>${Math.floor(currentForcastIndex.main.temp)} °F</span></p>`)
