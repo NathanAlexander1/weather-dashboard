@@ -63,14 +63,14 @@ function searchForCityAPI(cityName) {
         // var savedCityName = 
         listContainer.innerHTML = '';
         //local storage idea: key is the name inputted into the form and fair is data.main.name
-        var savedCityNames = JSON.parse(localStorage.getItem("cityname"));
+        var savedCityNames = JSON.parse(localStorage.getItem("cityname")) || [];
     
 
         savedCityNames.push(inputValue)
         // console.log(savedCityNames);
-        localStorage.setItem("saved-location", JSON.stringify(savedCityNames))
+        localStorage.setItem("cityname", JSON.stringify(savedCityNames))
     }
-    saveCity ();
+    saveCity (cityname);
 }
 
 //creat a fucntion, when search button is clicked, the sarch item is saved in a list itemc reated and appended to UL
@@ -79,7 +79,7 @@ function searchForCityAPI(cityName) {
 searchCities.on("submit", function searchCities(event) {
     event.preventDefault();
     var userSearchValue = cityNameInput.val();
-    searchForCityAPI(userSearchValue);
+    searchForCityAPI(`userSearchValue`);
     // console.log(userSearchValue);
     
 });
