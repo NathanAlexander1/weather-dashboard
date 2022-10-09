@@ -1,23 +1,12 @@
 var APIkey = "bbe39981906fc124cb49051c48a89934";
 var todayNameDate = $("#today-name-date")
-// var todayPlusOne = $("#todayPlusOne")
-// var todayPlusTwo = $("#todayPlusTwo")
-// var todayPlusThree = $("#todayPlusThree")
-// var todayPlusFour = $("#todayPlusFour")
-// var todayPlusFive = $("#todayPlusFive")
 var todaysWeatherInfo = $("#todays-weather-info");
 var containerForFiveDay = $("#container-for-five-day");
-var today = todayNameDate.text(moment().format("dddd MMM Mo YYYY"));
-// todayPlusOne.text(moment().add(1, "days").calendar())
-// todayPlusTwo.text(moment().add(2, "days").calendar())
-// todayPlusThree.text(moment().add(3, "days").calendar())
-// todayPlusFour.text(moment().add(4, "days").calendar())
-// todayPlusFive.text(moment().add(5, "days").calendar())
-
 var cityNameInput = $('#cityNameInput');
 var searchCities = $("#search-cities");
 var listContainer = $("#searchList");
 
+var savedCityNames = [];
 
 function searchForCityAPI(cityName) {
     //clear input
@@ -34,13 +23,8 @@ function searchForCityAPI(cityName) {
         return response.json();
     })
     .then(function (data) {
-        // console.log(data);
-        // todaysWeatherInfo.append(`<h2>${data.name}</h2>`)
-        // todaysWeatherInfo.append(`<p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p>`)
-        // todaysWeatherInfo.append(`<p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p>`)
-        // todaysWeatherInfo.append(`<p>Humidity: <span>${(data.main.humidity)}%</span></p>`)
-
-        todaysWeatherInfo.append(`<div class = "border p-2"><h2>${data.name}</h2><p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p><p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p><p>Humidity: <span>${(data.main.humidity)}%</span></p></div>`)
+        console.log(data);
+        todaysWeatherInfo.append(`<div class = "border p-2"><h2>${data.name}, ${(moment().format("ddd MMM DD, YYYY"))}</h2><p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p><p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p><p>Humidity: <span>${(data.main.humidity)}%</span></p></div>`)
 
         //going to call getUVIndex function
     });
@@ -60,23 +44,31 @@ function searchForCityAPI(cityName) {
             .then(function (data) {
                 // console.log(data);
                 var arrayOfForcastDay = data.list;
-                // console.log(arrayOfForcastDay);
+                console.log(arrayOfForcastDay);
 
-                for (var i = 0; i < arrayOfForcastDay.length; i+=8) {
+                for (var i = 1; i < arrayOfForcastDay.length; i+=8) {
                     var currentForcastIndex = arrayOfForcastDay[i];
-                    // console.log(currentForcastIndex);
+                    console.log(currentForcastIndex)
+                    var currentIcon = currentForcastIndex.weather[0].icon;
+                    console.log(currentIcon);
                     
                     //append new container to'(container-for-five-day)
-                    containerForFiveDay.append(`<div class = "col-2 border border-secondary m-1 bg-dark text-white"><h6>${(currentForcastIndex.dt_txt)}</h6><p>Temp: <span>${Math.floor(currentForcastIndex.main.temp)} °F</span></p><p>Wind Speed: <span>${(currentForcastIndex.wind.speed)} MPH</span></p><p>Humidity: <span>${(currentForcastIndex.main.humidity)}%</span></p></div>`)
+                    containerForFiveDay.append(`<div class = "col-2 border border-secondary m-1 bg-dark text-white"><h6>${moment(currentForcastIndex.dt_txt).format('ddd MMM DD, YYYY')}<img src = "https://openweathermap.org/img/wn/" + ${currentIcon} + ".png"></img></h6><p>Temp: <span>${Math.floor(currentForcastIndex.main.temp)} °F</span></p><p>Wind Speed: <span>${(currentForcastIndex.wind.speed)} MPH</span></p><p>Humidity: <span>${(currentForcastIndex.main.humidity)}%</span></p></div>`)
                 }
             })
     }
     displayFiveDay ();
 
-    function saveCity () {
-        var savedCityName = 
-        listContainer.append(`<button></button>`)
+    function saveCity (inputValue) {
+        // var savedCityName = 
+        listContainer.innerHTML = '';
         //local storage idea: key is the name inputted into the form and fair is data.main.name
+        var savedCityNames = JSON.parse(localStorage.getItem("cityname"));
+    
+
+        savedCityNames.push(inputValue)
+        // console.log(savedCityNames);
+        localStorage.setItem("saved-location", JSON.stringify(savedCityNames))
     }
     saveCity ();
 }
@@ -89,16 +81,7 @@ searchCities.on("submit", function searchCities(event) {
     var userSearchValue = cityNameInput.val();
     searchForCityAPI(userSearchValue);
     // console.log(userSearchValue);
-
-    var savedCityNames =
-    JSON.parse(localStorage.getItem("cityname"));
-
-    if (savedCityNames === null) {
-        savedCityNames = [];
-    }
-    savedCityNames.push(userSearchValue)
-    // console.log(savedCityNames);
-    localStorage.setItem("saved-location", JSON.stringify(savedCityNames))
+    
 });
 
 //loop through 5day forcast
