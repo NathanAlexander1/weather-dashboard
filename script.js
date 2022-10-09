@@ -7,7 +7,7 @@ var todayNameDate = $("#today-name-date")
 // var todayPlusFive = $("#todayPlusFive")
 var todaysWeatherInfo = $("#todays-weather-info");
 var containerForFiveDay = $("#container-for-five-day");
-// todayNameDate.text(moment().format("dddd MMM Mo YYYY"));
+var today = todayNameDate.text(moment().format("dddd MMM Mo YYYY"));
 // todayPlusOne.text(moment().add(1, "days").calendar())
 // todayPlusTwo.text(moment().add(2, "days").calendar())
 // todayPlusThree.text(moment().add(3, "days").calendar())
@@ -60,11 +60,11 @@ function searchForCityAPI(cityName) {
             .then(function (data) {
                 // console.log(data);
                 var arrayOfForcastDay = data.list;
-                console.log(arrayOfForcastDay);
+                // console.log(arrayOfForcastDay);
 
                 for (var i = 0; i < arrayOfForcastDay.length; i+=8) {
                     var currentForcastIndex = arrayOfForcastDay[i];
-                    console.log(currentForcastIndex);
+                    // console.log(currentForcastIndex);
                     
                     //append new container to'(container-for-five-day)
                     containerForFiveDay.append(`<div class = "col-2 border border-secondary m-1 bg-dark text-white"><h6>${(currentForcastIndex.dt_txt)}</h6><p>Temp: <span>${Math.floor(currentForcastIndex.main.temp)} °F</span></p><p>Wind Speed: <span>${(currentForcastIndex.wind.speed)} MPH</span></p><p>Humidity: <span>${(currentForcastIndex.main.humidity)}%</span></p></div>`)
@@ -74,9 +74,8 @@ function searchForCityAPI(cityName) {
     displayFiveDay ();
 
     function saveCity () {
-        var savedCityName = JSON.parse(localStorage.getItem("cityname"));
-
-        listContainer.append(`<button type="submit"></button>`)
+        var savedCityName = 
+        listContainer.append(`<button></button>`)
         //local storage idea: key is the name inputted into the form and fair is data.main.name
     }
     saveCity ();
@@ -91,14 +90,15 @@ searchCities.on("submit", function searchCities(event) {
     searchForCityAPI(userSearchValue);
     // console.log(userSearchValue);
 
-    var savedCityNames = JSON.parse(localStorage.getItem("cityname"));
+    var savedCityNames =
+    JSON.parse(localStorage.getItem("cityname"));
 
     if (savedCityNames === null) {
         savedCityNames = [];
     }
     savedCityNames.push(userSearchValue)
     // console.log(savedCityNames);
-    localStorage.setItem("saved-location", JSON.stringify(savedCityNames));
+    localStorage.setItem("saved-location", JSON.stringify(savedCityNames))
 });
 
 //loop through 5day forcast
