@@ -68,9 +68,16 @@ function searchForCityAPI(cityName) {
 
         savedCityNames.push(inputValue)
         // console.log(savedCityNames);
-        localStorage.setItem("cityname", JSON.stringify(savedCityNames))
+        localStorage.setItem("cityname", JSON.stringify(savedCityNames));
+
+        for (var j = 0; j <savedCityNames.length; j++) {
+            var currentCityName = savedCityNames[j];
+            listContainer.append(`<button class = 'col' id = 'currentCityName'>${(currentCityName)}</button>`)
+        }
+
+
     }
-    saveCity (cityname);
+    saveCity(cityName);
 }
 
 //creat a fucntion, when search button is clicked, the sarch item is saved in a list itemc reated and appended to UL
@@ -79,11 +86,12 @@ function searchForCityAPI(cityName) {
 searchCities.on("submit", function searchCities(event) {
     event.preventDefault();
     var userSearchValue = cityNameInput.val();
-    searchForCityAPI(`userSearchValue`);
+    searchForCityAPI(userSearchValue);
     // console.log(userSearchValue);
     
 });
 
+currentCityName.on("click", searchForCityAPI(currentCityName.val()));
 //loop through 5day forcast
     //different fetch
 //save to local storage

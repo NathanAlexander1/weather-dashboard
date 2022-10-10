@@ -6,6 +6,9 @@
 }
 
 header {
-    background-color: blueviolet;
+    background-image:linear-gradient(red, yellow, green);
     text-align: center;
+    font-family: 'Comforter Brush', cursive;
+    font-size: 500%;
+    padding-top: 1%;
 }
