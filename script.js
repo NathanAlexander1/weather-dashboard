@@ -61,8 +61,8 @@ function searchForCityAPI(cityName) {
 
     function saveCity (inputValue) {
         // var savedCityName = 
-        // listContainer.innerHTML = '';
         //local storage idea: key is the name inputted into the form and fair is data.main.name
+        listContainer.empty();
         var savedCityNames = JSON.parse(localStorage.getItem("cityname")) || [];
 
         console.log(savedCityNames);
@@ -73,7 +73,7 @@ function searchForCityAPI(cityName) {
         localStorage.setItem("cityname", JSON.stringify(savedCityNames));
 
         for (var j = 0; j <savedCityNames.length; j++) {
-            // listContainer.innerHTML = "";
+            
             var currentCityName = savedCityNames[j];
             listContainer.append(`<button class = 'col' id = 'currentCityName'>${(currentCityName)}</button>`)
         }
