@@ -3,10 +3,11 @@
     margin: 0;
     padding:0;
     box-sizing: border-box;
+
 }
 
 header {
-    background-image:linear-gradient(red, yellow, green);
+    background-image:linear-gradient(lightblue,rgb(168, 218, 168), white);
     text-align: center;
     font-family: 'Comforter Brush', cursive;
     font-size: 500%;

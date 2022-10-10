@@ -23,8 +23,8 @@ function searchForCityAPI(cityName) {
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
-        todaysWeatherInfo.append(`<div class = "border p-2"><h2>${data.name}, ${(moment().format("ddd MMM DD, YYYY"))}</h2><p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p><p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p><p>Humidity: <span>${(data.main.humidity)}%</span></p></div>`)
+        // console.log(data);
+        todaysWeatherInfo.append(`<div class = "border p-2"><h2>${data.name}, ${(moment().format("ddd MMM DD, YYYY"))}<img src = "https://openweathermap.org/img/wn/${(data.weather[0].icon)}.png"></img></h2><p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p><p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p><p>Humidity: <span>${(data.main.humidity)}%</span></p></div>`)
 
         //going to call getUVIndex function
     });
@@ -44,16 +44,16 @@ function searchForCityAPI(cityName) {
             .then(function (data) {
                 // console.log(data);
                 var arrayOfForcastDay = data.list;
-                console.log(arrayOfForcastDay);
+                // console.log(arrayOfForcastDay);
 
                 for (var i = 1; i < arrayOfForcastDay.length; i+=8) {
                     var currentForcastIndex = arrayOfForcastDay[i];
-                    console.log(currentForcastIndex)
+                    // console.log(currentForcastIndex)
                     var currentIcon = currentForcastIndex.weather[0].icon;
-                    console.log(currentIcon);
+                    // console.log(currentIcon);
                     
                     //append new container to'(container-for-five-day)
-                    containerForFiveDay.append(`<div class = "col-2 border border-secondary m-1 bg-dark text-white"><h6>${moment(currentForcastIndex.dt_txt).format('ddd MMM DD, YYYY')}<img src = "https://openweathermap.org/img/wn/" + ${currentIcon} + ".png"></img></h6><p>Temp: <span>${Math.floor(currentForcastIndex.main.temp)} °F</span></p><p>Wind Speed: <span>${(currentForcastIndex.wind.speed)} MPH</span></p><p>Humidity: <span>${(currentForcastIndex.main.humidity)}%</span></p></div>`)
+                    containerForFiveDay.append(`<div class = "col-2 border border-secondary m-1 bg-dark text-white"><h6>${moment(currentForcastIndex.dt_txt).format('ddd MMM DD, YYYY')}<img src = "https://openweathermap.org/img/wn/${(currentIcon)}.png"></img></h6><p>Temp: <span>${Math.floor(currentForcastIndex.main.temp)} °F</span></p><p>Wind Speed: <span>${(currentForcastIndex.wind.speed)} MPH</span></p><p>Humidity: <span>${(currentForcastIndex.main.humidity)}%</span></p></div>`)
                 }
             })
     }
@@ -61,20 +61,23 @@ function searchForCityAPI(cityName) {
 
     function saveCity (inputValue) {
         // var savedCityName = 
-        listContainer.innerHTML = '';
+        // listContainer.innerHTML = '';
         //local storage idea: key is the name inputted into the form and fair is data.main.name
         var savedCityNames = JSON.parse(localStorage.getItem("cityname")) || [];
+
+        console.log(savedCityNames);
     
 
         savedCityNames.push(inputValue)
-        // console.log(savedCityNames);
+        // // console.log(savedCityNames);
         localStorage.setItem("cityname", JSON.stringify(savedCityNames));
 
         for (var j = 0; j <savedCityNames.length; j++) {
+            // listContainer.innerHTML = "";
             var currentCityName = savedCityNames[j];
             listContainer.append(`<button class = 'col' id = 'currentCityName'>${(currentCityName)}</button>`)
         }
-
+        // listContainer.append(`<button class = 'col' id = 'currentCityName'>${(savedCityNames[0])}</button>`)
 
     }
     saveCity(cityName);
@@ -91,7 +94,7 @@ searchCities.on("submit", function searchCities(event) {
     
 });
 
-currentCityName.on("click", searchForCityAPI(currentCityName.val()));
+// currentCityName.on("click", searchForCityAPI(currentCityName.val()));
 //loop through 5day forcast
     //different fetch
 //save to local storage
