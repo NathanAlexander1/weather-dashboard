@@ -27,7 +27,7 @@ function searchForCityAPI(cityName) {
     })
     .then(function (data) {
         // console.log(data);
-        todaysWeatherInfo.append(`<div class = "border p-2"><h2>${data.name}, ${(moment().format("ddd MMM DD, YYYY"))}<img src = "https://openweathermap.org/img/wn/${(data.weather[0].icon)}.png"></img></h2><p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p><p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p><p>Humidity: <span>${(data.main.humidity)}%</span></p></div>`)
+        todaysWeatherInfo.append(`<div class = "border p-2 bg-dark text-white"><h2>${data.name}, ${(moment().format("ddd MMM DD, YYYY"))}<img src = "https://openweathermap.org/img/wn/${(data.weather[0].icon)}.png"></img></h2><p>Temp: <span>${Math.floor(data.main.temp)} °F</span></p><p>Wind Speed: <span>${(data.wind.speed)} MPH</span></p><p>Humidity: <span>${(data.main.humidity)}%</span></p></div>`)
 
         //going to call getUVIndex function
     });
@@ -87,10 +87,10 @@ function saveCity (inputValue) {
 
 // $(".selector").on("click", searchForCityAPI($("#currentCityName").innerHTML));
 
-$(".selector").on("click", function(event) {
-    event.preventDefault();
-    console.log("Hello world")
-})
+// $(".selector").on("click", function(event) {
+//     event.preventDefault();
+//     console.log("Hello world")
+// })
 
 //on click, a series of functions are called to display today's weather and a 5 days forcast. In addition, previously searched cities are displayed as buttons that can be re-clicked to bring that city's weather
 searchCities.on("submit", function searchCities(event) {
