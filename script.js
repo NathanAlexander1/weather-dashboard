@@ -81,16 +81,19 @@ function saveCity (inputValue) {
 
     for (var j = 0; j <savedCityNames.length; j++) {
         var currentCityName = savedCityNames[j];
-        listContainer.append(`<button class = 'col btn btn-secondary btn-block selector'>${(currentCityName)}</button>`)
+        listContainer.append(`<button class='col btn btn-secondary btn-block selector'>${(currentCityName)}</button>`)
     }
 }
 
 // $(".selector").on("click", searchForCityAPI($("#currentCityName").innerHTML));
 
-// $(".selector").on("click", function(event) {
-//     event.preventDefault();
-//     console.log("Hello world")
-// })
+listContainer.on("click", function(event) {
+    var target = event.target
+    console.log(target.nodeName)
+    if (target.nodeName === "BUTTON") {
+        searchForCityAPI(target.innerHTML);
+    }
+})
 
 //on click, a series of functions are called to display today's weather and a 5 days forcast. In addition, previously searched cities are displayed as buttons that can be re-clicked to bring that city's weather
 searchCities.on("submit", function searchCities(event) {
