@@ -59,32 +59,34 @@ function searchForCityAPI(cityName) {
     }
     displayFiveDay ();
 
-    function saveCity (inputValue) {
-        // var savedCityName = 
-        //local storage idea: key is the name inputted into the form and fair is data.main.name
-        listContainer.empty();
-        var savedCityNames = JSON.parse(localStorage.getItem("cityname")) || [];
-
-        console.log(savedCityNames);
-    
-
-        savedCityNames.push(inputValue)
-        // // console.log(savedCityNames);
-        localStorage.setItem("cityname", JSON.stringify(savedCityNames));
-
-        for (var j = 0; j <savedCityNames.length; j++) {
-            
-            var currentCityName = savedCityNames[j];
-            listContainer.append(`<button class = 'col' id = 'currentCityName'>${(currentCityName)}</button>`)
-        }
-        // listContainer.append(`<button class = 'col' id = 'currentCityName'>${(savedCityNames[0])}</button>`)
-
-    }
     saveCity(cityName);
 }
 
+
+
+function saveCity (inputValue) {
+    // var savedCityName = 
+    //local storage idea: key is the name inputted into the form and fair is data.main.name
+    listContainer.empty();
+    var savedCityNames = JSON.parse(localStorage.getItem("cityname")) || [];
+
+    console.log(savedCityNames);
+
+
+    savedCityNames.push(inputValue)
+    // // console.log(savedCityNames);
+    localStorage.setItem("cityname", JSON.stringify(savedCityNames));
+
+    for (var j = 0; j <savedCityNames.length; j++) {
+        var currentCityName = savedCityNames[j];
+        listContainer.append(`<button class = 'col btn btn-secondary btn-block' id = 'currentCityName'>${(currentCityName)}</button>`)
+    }
+    // listContainer.append(`<button class = 'col' id = 'currentCityName'>${(savedCityNames[0])}</button>`)
+
+}
 //creat a fucntion, when search button is clicked, the sarch item is saved in a list itemc reated and appended to UL
 
+// $("#currentCityName").on("click", searchForCityAPI($("#currentCityName").innerHTML));
 
 searchCities.on("submit", function searchCities(event) {
     event.preventDefault();
@@ -94,7 +96,6 @@ searchCities.on("submit", function searchCities(event) {
     
 });
 
-// currentCityName.on("click", searchForCityAPI(currentCityName.val()));
 //loop through 5day forcast
     //different fetch
 //save to local storage
