@@ -1,3 +1,4 @@
+
 var APIkey = "bbe39981906fc124cb49051c48a89934";
 var todayNameDate = $("#today-name-date")
 var todaysWeatherInfo = $("#todays-weather-info");
@@ -6,7 +7,9 @@ var cityNameInput = $('#cityNameInput');
 var searchCities = $("#search-cities");
 var listContainer = $("#searchList");
 
-var savedCityNames = [];
+
+// var savedCityNames = [];
+
 
 function searchForCityAPI(cityName) {
     //clear input
@@ -63,11 +66,10 @@ function searchForCityAPI(cityName) {
 }
 
 
-
 function saveCity (inputValue) {
-    // var savedCityName = 
-    //local storage idea: key is the name inputted into the form and fair is data.main.name
+    //empties the buttons already printed to avoid duplicating each time a new buttons is added
     listContainer.empty();
+    //this is the array that saved cities will be pushed to
     var savedCityNames = JSON.parse(localStorage.getItem("cityname")) || [];
 
     console.log(savedCityNames);
@@ -79,15 +81,18 @@ function saveCity (inputValue) {
 
     for (var j = 0; j <savedCityNames.length; j++) {
         var currentCityName = savedCityNames[j];
-        listContainer.append(`<button class = 'col btn btn-secondary btn-block' id = 'currentCityName'>${(currentCityName)}</button>`)
+        listContainer.append(`<button class = 'col btn btn-secondary btn-block selector'>${(currentCityName)}</button>`)
     }
-    // listContainer.append(`<button class = 'col' id = 'currentCityName'>${(savedCityNames[0])}</button>`)
-
 }
-//creat a fucntion, when search button is clicked, the sarch item is saved in a list itemc reated and appended to UL
 
-// $("#currentCityName").on("click", searchForCityAPI($("#currentCityName").innerHTML));
+// $(".selector").on("click", searchForCityAPI($("#currentCityName").innerHTML));
 
+$(".selector").on("click", function(event) {
+    event.preventDefault();
+    console.log("Hello world")
+})
+
+//on click, a series of functions are called to display today's weather and a 5 days forcast. In addition, previously searched cities are displayed as buttons that can be re-clicked to bring that city's weather
 searchCities.on("submit", function searchCities(event) {
     event.preventDefault();
     var userSearchValue = cityNameInput.val();
@@ -95,8 +100,3 @@ searchCities.on("submit", function searchCities(event) {
     // console.log(userSearchValue);
     
 });
-
-//loop through 5day forcast
-    //different fetch
-//save to local storage
-//retrieve from local storage
