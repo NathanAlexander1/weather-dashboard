@@ -13,3 +13,13 @@ header {
     font-size: 500%;
     padding-top: 1%;
 }
+
+footer {
+    background-image:linear-gradient(white,rgb(168, 218, 168), lightblue);
+    text-align: center;
+    padding-bottom: 1%;
+}
+
+footer p {
+    padding-top: 2.5%;
+}
