@@ -24,7 +24,7 @@ function searchForCityAPI(cityName) {
       return response.json();
     })
     .then(function (data) {
-      // console.log(data);
+      console.log(data);
       todaysWeatherInfo.append(
         `<div class = "border p-2 bg-dark text-white"><h2>${
           data.name
@@ -99,8 +99,8 @@ function saveCity(inputValue) {
   var uniqueEl = $.unique(savedCityNames);
   console.log(uniqueEl);
 
-  if (savedCityNames.indexOf(inputValue) == -1) {
-    savedCityNames.push(inputValue);
+  if (savedCityNames.indexOf(inputValue.toLowerCase()) == -1) {
+    savedCityNames.push(inputValue.toLowerCase());
     localStorage.setItem("cityname", JSON.stringify(savedCityNames));
 
   }
@@ -118,7 +118,7 @@ function saveCity(inputValue) {
 
 listContainer.on("click", function (event) {
   var target = event.target;
-  console.log(target.nodeName);
+//   console.log(target.nodeName);
   if (target.nodeName === "BUTTON") {
     searchForCityAPI(target.innerHTML);
   }
